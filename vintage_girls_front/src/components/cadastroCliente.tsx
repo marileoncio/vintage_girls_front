@@ -40,7 +40,8 @@ const CadastroCliente = () => {
             complemento: complemento,
             senha: senha
         }
-        axios.post('http://127.0.0.1:8000/api/store',
+        console.log (dados)
+        axios.post('http://127.0.0.1:8000/api/cliente/store',
             dados,
             {
                 headers: {
@@ -48,7 +49,8 @@ const CadastroCliente = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function(response){
-                //window.location.href = "/listagem"
+                console.log(response.data)
+                window.location.href = "/listagem"
             }).catch(function(error){
                 console.log(error);
                 console.log(dados);
@@ -57,6 +59,9 @@ const CadastroCliente = () => {
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "nome") {
             setNome(e.target.value);
+        }
+        if (e.target.name === "celular") {
+            setCelular(e.target.value);
         }
         if (e.target.name === "email") {
             setEmail(e.target.value);
@@ -108,6 +113,10 @@ const CadastroCliente = () => {
                                     <label htmlFor="nome" className='form-label'>Nome</label>
                                     <input type="text" name="nome" className='form-control' required onChange={handleState} />
 
+                                </div>
+                                <div className='col-6'>
+                                    <label htmlFor="celular" className='form-label'>Celular</label>
+                                    <input type="text" name='celular' className='form-control' required onChange={handleState} />
                                 </div>
 
                                 <div className='col-6'>
@@ -175,8 +184,8 @@ const CadastroCliente = () => {
                                 </div>
 
                                     <div className='col-6'>
-                                    <label htmlFor="password" className='form-label'>Senha</label>
-                                    <input type="text" name='password' className='form-control' required onChange={handleState} />
+                                    <label htmlFor="senha" className='form-label'>Senha</label>
+                                    <input type="text" name='senha' className='form-control' required onChange={handleState} />
                                 </div>
 
                                 <div className='col-12'>

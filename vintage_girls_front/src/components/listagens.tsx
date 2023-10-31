@@ -20,7 +20,7 @@ const Listagem = () => {
         async function fetchData() {
             try {
 
-                const response = await axios.post('http://127.0.0.1:8000/api/findNome',
+                const response = await axios.post('http://127.0.0.1:8000/api/cliente/nome',
                 {nome:pesquisa},
                 {
                     headers: {
@@ -44,7 +44,7 @@ const Listagem = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/find');
+                const response = await axios.get('http://127.0.0.1:8000/api/cliente/all');
                 setUsuarios(response.data.data);
 
             } catch (error) {
@@ -111,6 +111,16 @@ const Listagem = () => {
                                             <td>{usuario.nome}</td>
                                             <td>{usuario.cpf}</td>
                                             <td>{usuario.email}</td>
+                                            <td>{usuario.celular}</td>
+                                            <td>{usuario.dataNascismento}</td>
+                                            <td>{usuario.cidade}</td>
+                                            <td>{usuario.estado}</td>
+                                            <td>{usuario.pais}</td>
+                                            <td>{usuario.rua}</td>
+                                            <td>{usuario.numero}</td>
+                                            <td>{usuario.bairro}</td>
+                                            <td>{usuario.cep}</td>
+                                            <td>{usuario.complemento}</td>
                                             <td>
                                                 <a href="#" className='btn btn-primary btn-sm'>Editar</a>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
