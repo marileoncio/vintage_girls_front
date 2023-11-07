@@ -1,9 +1,9 @@
-export interface CadastroInterface {
+export interface CadastroServicoInterface {
     id: number;
     nome: string;
     descricao: string;
-    duracao: intenger;
-    preco: decimal;
+    duracao: number;
+    preco: number;
     
 
 }

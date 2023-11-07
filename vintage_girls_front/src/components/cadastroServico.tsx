@@ -1,13 +1,14 @@
 import axios from 'axios';
-import React, {Component, UseState, ChangeEvent, FormEvent, useEffect} from 'react';
+import React, {Component, useState, ChangeEvent, FormEvent, useEffect} from 'react';
+import styles from "../App.module.css"
 import Footer from './Footer';
 import Header from './Header';
 
-const CadastroCliente = () => {
-    const [nome, setNome] = UseState<string>("")
-    const [descricao, setDescricao] = UseState<string>("")
-    const [duracao, setDuracao] = UseState<intenger>("")
-    const [preco, setPreco] = UseState<decimal>("")
+const CadastroServico = () => {
+    const [nome, setNome] = useState<string>("")
+    const [descricao, setDescricao] = useState<string>("")
+    const [duracao, setDuracao] = useState<string>()
+    const [preco, setPreco] = useState<string>()
 
     const CadastroServico = (e: FormEvent) => {
         e.preventDefault();
@@ -51,7 +52,71 @@ const CadastroCliente = () => {
         }   
     }
     
-   }
+    return (
+        <div>
+            <Header />
+            <main className={styles.main}>
+                <div className='container'>
+                    <div className='card'>
+                        <div className='card-body'>
+                            <h5 className='card-title'>Cadastrar Serviço</h5>
+                            <form onSubmit={CadastroServico} className='row g-3'>
+                                <div className='col-6'>
+                                    <label htmlFor="nome" className='form-label'>Nome</label>
+                                    <input type="text" name="nome" className='form-control' required onChange={handleState} />
+
+                                </div>
+                                <div className='col-6'>
+                                    <label htmlFor="descricao" className='form-label'>Descrição</label>
+                                    <input type="text" name='descricao' className='form-control' required onChange={handleState} />
+                                </div>
+
+                                <div className='col-6'>
+                                    <label htmlFor="duracao" className='form-label'>Duração</label>
+                                    <input type="text" name='duracao' className='form-control' required onChange={handleState} />
+                                </div>
+
+                                <div className='col-6'>
+                                    <label htmlFor="preco" className='form-label'>Preço</label>
+                                    <input type="text" name='preco' className='form-control' required onChange={handleState} />
+
+                                </div>
+
+                                
+                                        <div className='col-12'>
+                                    <button type='submit' className='btn btn-success btn-sm'>Cadastrar</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </main>
+            <Footer />
+
+        </div>
+    );
+}
+
+export default CadastroServico;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
