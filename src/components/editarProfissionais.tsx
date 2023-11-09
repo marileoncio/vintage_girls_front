@@ -5,11 +5,12 @@ import React, {
 import Header from './Header';
 import Footer from './Footer';
 import styles from '../App.module.css';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const CadastroProfissional = () => {
-   
-    const [id, setId] = useState<string>("")
+
+const EditarProfissional = () => {
+    const [id, setId] = useState<number>();
     const [nome, setNome] = useState<string>("");
     const [celular, setCelular] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -23,10 +24,13 @@ const CadastroProfissional = () => {
     const [bairro, setBairro] = useState<string>("");
     const [cep, setCep] = useState<string>("");
     const [complemento, setComplemento] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [senha, setSenha] = useState<string>("");
     const [salario, setSalario] = useState<string>("");
 
-    const cadastrarProfissional = (e: FormEvent) => {
+
+    const parametro = useParams();
+
+    const atualizar = (e: FormEvent) => {
         e.preventDefault();
 
         const dados = {
@@ -44,31 +48,59 @@ const CadastroProfissional = () => {
             bairro: bairro,
             cep: cep,
             complemento: complemento,
-            senha: password,
+            senha: senha,
             salario: salario
+
         }
-        console.log(dados)
-        axios.post('http://127.0.0.1:8000/api/profissional/store',
+
+        axios.put('http://127.0.0.1:8000/api/cliente/update',
             dados,
             {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 }
-            }).then(function(response){
-                console.log("Cadastrou")
-                console.log(response);
-                window.location.href = "/listagemProfissional"
-            }).catch(function(error){
+            }).then(function (response) {
+                window.location.href = "/editarProfissional"
+            }).catch(function (error) {
                 console.log(error);
-            })
-
+            });
     }
 
-    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name === "id") {
-            setId(e.target.value);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/api/profissional/find/" + parametro.id);
+                setId(response.data.data.id);
+                setNome(response.data.data.nome);
+                setCelular(response.data.data.celular);
+                setEmail(response.data.data.email);
+                setCpf(response.data.data.cpf);
+                setDataNascimento(response.data.data.dataNascimento);
+                setCidade(response.data.data.cidade);
+                setEstado(response.data.data.estado);
+                setPais(response.data.data.pais);
+                setRua(response.data.data.rua);
+                setNumero(response.data.data.numero);
+                setBairro(response.data.data.bairro);
+                setCep(response.data.data.cep);
+                setComplemento(response.data.data.complemento);
+                setSenha(response.data.data.senha);
+                setSalario(response.data.data.salario);
+                console.log(response)
+
+
+            } catch (error) {
+                console.log("erro ao buscar dados de api")
+                console.log(error)
+            }
         }
+
+
+        fetchData();
+    }, []);
+
+    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "nome") {
             setNome(e.target.value);
         }
@@ -108,8 +140,8 @@ const CadastroProfissional = () => {
         if (e.target.name === "complemento") {
             setComplemento(e.target.value);
         }
-        if (e.target.name === "password") {
-            setPassword(e.target.value);
+        if (e.target.name === "senha") {
+            setSenha(e.target.value);
         }
         if (e.target.name === "salario") {
             setSalario(e.target.value);
@@ -125,9 +157,8 @@ const CadastroProfissional = () => {
                 <div className='card'> </div>
                 <div className='card-body'> </div>
                 <br />
-                <h5 className='card-title'>Cadastrar Profissional</h5>
-                
-                <form onSubmit={cadastrarProfissional} className='row g-3'>
+                <h5 className='card-title'>Editar Profissional</h5>
+                <form onSubmit={atualizar} className='row g-3'>
                     <div className='col-6'>
                         <label htmlFor='nome' className='form-label'>Nome</label>
                         <input type='text'
@@ -135,9 +166,11 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
+                            value={nome}
 
                         ></input>
                     </div>
+
                     <div className='col-6'>
                         <label htmlFor='celular' className='form-label'>Celular</label>
                         <input type='text'
@@ -145,9 +178,10 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={celular}
                         ></input>
                     </div>
+
                     <div className='col-6'>
                         <label htmlFor='email' className='form-label'>E-mail</label>
                         <input type='text'
@@ -155,7 +189,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={email}
                         ></input>
                     </div>
 
@@ -166,18 +200,18 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={cpf}
                         ></input>
                     </div>
 
                     <div className='col-6'>
                         <label htmlFor='dataNascimento' className='form-label'>Data de Nascimento</label>
                         <input type='date'
-                            name='dataNascimento'
+                            name='datanascimento'
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={dataNascimento}
                         ></input>
                     </div>
 
@@ -188,7 +222,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={cidade}
                         ></input>
                     </div>
 
@@ -199,7 +233,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={estado}
                         ></input>
                     </div>
 
@@ -210,7 +244,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={pais}
                         ></input>
                     </div>
 
@@ -221,7 +255,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={rua}
                         ></input>
                     </div>
 
@@ -232,7 +266,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={numero}
                         ></input>
                     </div>
 
@@ -243,7 +277,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={bairro}
                         ></input>
                     </div>
 
@@ -254,29 +288,29 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={cep}
                         ></input>
                     </div>
 
                     <div className='col-6'>
-                        <label htmlFor='complemento' className='form-label'>Complemento</label>
+                        <label htmlFor='ccomplemento' className='form-label'>Complemento</label>
                         <input type='text'
                             name='complemento'
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={complemento}
                         ></input>
                     </div>
 
                     <div className='col-6'>
-                        <label htmlFor='password' className='form-label'>Senha</label>
+                        <label htmlFor='senha' className='form-label'>Senha</label>
                         <input type='text'
-                            name='password'
+                            name='senha'
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={senha}
                         ></input>
                     </div>
 
@@ -287,15 +321,14 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+                            value={salario}
                         ></input>
                     </div>
-
 
                     <div className='col-12'>
                         <button
                             type='submit'
-                            className='btn btn-success btn-sm'>Cadastrar</button>
+                            className='btn btn-success btn-sm'>Atualizar</button>
                     </div>
                 </form>
             </main>
@@ -304,4 +337,4 @@ const CadastroProfissional = () => {
     );
 }
 
-export default CadastroProfissional;
+export default EditarProfissional;

@@ -30,7 +30,7 @@ const CadastroServico = () => {
                 }
             }).then(function(response){
                 console.log(response.data)
-                window.location.href = "/listagensServico"
+                window.location.href = "/ListagemProfissional"
             }).catch(function(error){
                 console.log(error);
                 console.log(dados);
@@ -59,6 +59,7 @@ const CadastroServico = () => {
                 <div className='container'>
                     <div className='card'>
                         <div className='card-body'>
+                            <br />
                             <h5 className='card-title'>Cadastrar Serviço</h5>
                             <form onSubmit={CadastroServico} className='row g-3'>
                                 <div className='col-6'>

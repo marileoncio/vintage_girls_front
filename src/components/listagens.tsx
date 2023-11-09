@@ -3,6 +3,7 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 import styles from "../App.module.css"
 import axios from 'axios';
 import { CadastroInterface } from '../interfaces/cadastroClienteInterface';
+import { Link } from 'react-router-dom';
 
 const Listagem = () => {
     const [usuarios, setUsuarios] = useState<CadastroInterface[]>([])
@@ -82,7 +83,7 @@ const Listagem = () => {
 
                         <div className='card-body'>
                             <h5 className='card-title'>
-                                Listagem de Usuários
+                                Listagem de Clientes
                             </h5>
                             <table className='table table-hover'>
                                 <thead>
@@ -122,7 +123,7 @@ const Listagem = () => {
                                             <td>{usuario.cep}</td>
                                             <td>{usuario.complemento}</td>
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                                <Link to={"/editarCliente/"+usuario.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
 
                                             </td>

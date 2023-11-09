@@ -2,6 +2,7 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 import styles from "../App.module.css";
 import { CadastroProfissionaisInterface } from '../interfaces/cadastroProfissionaisInterface';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ListagemProfissional = () => {
 
@@ -86,7 +87,7 @@ const ListagemProfissional = () => {
                     <div className='card'>
                         <div className='card-body'>
                             <h5 className='card-title'>
-                                Listagem de Usuários
+                                Listagem de Profissionais
                             </h5>
                             <table className='table table-hover'>
                                 <thead>
@@ -132,7 +133,7 @@ const ListagemProfissional = () => {
                                            
                                            
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                            <Link to={"/editarProfissionais/"+usuario.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>

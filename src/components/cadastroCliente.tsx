@@ -107,6 +107,7 @@ const CadastroCliente = () => {
                 <div className='container'>
                     <div className='card'>
                         <div className='card-body'>
+                            <br />
                             <h5 className='card-title'>Cadastrar Cliente</h5>
                             <form onSubmit={CadastroCliente} className='row g-3'>
                                 <div className='col-6'>
@@ -132,7 +133,7 @@ const CadastroCliente = () => {
 
                                 <div className='col-6'>
                                     <label htmlFor="dataNascimento" className='form-label'>Data de nascimento</label>
-                                    <input type="text" name='dataNascimento' className='form-control' required onChange={handleState} />
+                                    <input type="date" name='dataNascimento' className='form-control' required onChange={handleState} />
 
                                 </div>
 
