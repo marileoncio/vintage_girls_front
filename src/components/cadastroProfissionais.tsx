@@ -56,9 +56,14 @@ const CadastroProfissional = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function(response){
-                console.log("Cadastrou")
-                console.log(response);
-                window.location.href = "/listagemProfissional"
+                console.log(response)
+                if(response.data.success == true){
+                    console.log("Cadastrou")
+                    window.location.href = "/listagemProfissional"
+                }
+                else{
+                    console.log(response.data.error);
+                }
             }).catch(function(error){
                 console.log(error);
             })
@@ -135,7 +140,7 @@ const CadastroProfissional = () => {
                             className='form-control'
                             required
                             onChange={handleState}
-
+            
                         ></input>
                     </div>
                     <div className='col-6'>
@@ -147,6 +152,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                        
                     </div>
                     <div className='col-6'>
                         <label htmlFor='email' className='form-label'>E-mail</label>
@@ -157,6 +163,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                        
                     </div>
 
                     <div className='col-6'>
@@ -168,6 +175,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                    
                     </div>
 
                     <div className='col-6'>
@@ -179,6 +187,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+
                     </div>
 
                     <div className='col-6'>
@@ -190,6 +199,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                        
                     </div>
 
                     <div className='col-6'>
@@ -201,6 +211,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                        
                     </div>
 
                     <div className='col-6'>
@@ -212,6 +223,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                      
                     </div>
 
                     <div className='col-6'>
@@ -223,6 +235,7 @@ const CadastroProfissional = () => {
                             onChange={handleState}
 
                         ></input>
+                        
                     </div>
 
                     <div className='col-6'>

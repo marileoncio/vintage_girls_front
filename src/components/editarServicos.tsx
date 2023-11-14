@@ -48,7 +48,7 @@ const EditarServico = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/servico/find/" + parametro.id);
+                const response = await axios.post("http://127.0.0.1:8000/api/servico/find/" + parametro.id);
                 setId(response.data.data.id);
                 setNome(response.data.data.nome);
                 setDescricao(response.data.data.descricao);

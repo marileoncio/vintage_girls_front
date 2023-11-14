@@ -30,7 +30,7 @@ const CadastroServico = () => {
                 }
             }).then(function(response){
                 console.log(response.data)
-                window.location.href = "/ListagemProfissional"
+                window.location.href = "/ListagemServico"
             }).catch(function(error){
                 console.log(error);
                 console.log(dados);
