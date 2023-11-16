@@ -17,6 +17,18 @@ const ListagemProfissional = () => {
     }
 }
 
+function excluir(id: number) {
+    const confirm = window.confirm('Você tem certeza que deseja excluir?');
+    if (confirm)
+        axios.delete('http://127.0.0.1:8000/api/profissional/excluir/' + id)
+            .then(function (response) {
+                console.log(response)
+                window.location.href = "/listagemProfissional/"
+            }).catch(function (error) {
+                console.log('Ocorreu um erro ao excluir');
+            })
+}
+
     const buscar = (e: FormEvent) => {
         e.preventDefault();
 
@@ -67,15 +79,19 @@ const ListagemProfissional = () => {
     return (
         <div>
             <main className={styles.main}>
+
                 <div className='container'>
                     <div className='col-md mb-3'>
                         <div className='card'>
-                            <div className='card-boy'>
+                            <div className='card-body'>
                                 <h5 className='card-title'>Pesquisar</h5>
                                 <form onSubmit={buscar} className='row'>
-                                    <div className='col-10'>
-                                        <input type="text" name="pesquisa" className='form-control' onChange={handleState} />
+                                    <div className='col-9'>
+                                        
+                                        <input type="text" name='pesquisa' className='form-control'
+                                            onChange={handleState} />
                                     </div>
+                                
                                     <div className='col-1'>
                                         <button type='submit' className='btn btn-success'>Pesquisar</button>
                                     </div>
@@ -83,6 +99,7 @@ const ListagemProfissional = () => {
                             </div>
                         </div>
                     </div>
+
 
                     <div className='card'>
                         <div className='card-body'>
@@ -92,13 +109,12 @@ const ListagemProfissional = () => {
                             <table className='table table-hover'>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                     
                                         <th>Nome</th>
                                         <th>Celular</th>
                                         <th>E-mail</th>
                                         <th>CPF</th>
-                                        <th>dataNascimento</th>
-                                        <th>cidade</th>
+                                         <th>cidade</th>
                                         <th>estado</th>
                                         <th>pais</th>
                                         <th>rua</th>
@@ -106,20 +122,18 @@ const ListagemProfissional = () => {
                                         <th>bairro</th>
                                         <th>cep</th>
                                         <th>complemento</th>
-                                        <th>senha</th>
-                                        <th>salario</th>
+                                         <th>salario</th>
                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {usuarios.map(usuario => (
                                         <tr key={usuario.id}>
-                                            <td>{usuario.id}</td>
+                
                                             <td>{usuario.nome}</td>
                                             <td>{usuario.celular}</td>
                                             <td>{usuario.email}</td>
                                             <td>{usuario.cpf}</td>
-                                            <td>{usuario.dataNascimento}</td>
                                             <td>{usuario.cidade}</td>
                                             <td>{usuario.estado}</td>
                                             <td>{usuario.pais}</td>
@@ -127,14 +141,12 @@ const ListagemProfissional = () => {
                                             <td>{usuario.numero}</td>
                                             <td>{usuario.bairro}</td>
                                             <td>{usuario.cep}</td>
-                                            <td>{usuario.complemento}</td>
-                                            <td>{usuario.senha}</td>
                                             <td>{usuario.salario}</td>
                                            
                                            
                                             <td>
                                             <Link to={"/editarProfissional/"+usuario.id} className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                            <button onClick={() => excluir(usuario.id)} className='button btn-black btn-sm'>Excluir</button>
                                             </td>
                                         </tr>
                                     ))}

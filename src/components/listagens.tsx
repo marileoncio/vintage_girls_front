@@ -4,16 +4,28 @@ import styles from "../App.module.css"
 import axios from 'axios';
 import { CadastroInterface } from '../interfaces/cadastroClienteInterface';
 import { Link } from 'react-router-dom';
+import '../components/estilo.css'
 
 const Listagem = () => {
     const [usuarios, setUsuarios] = useState<CadastroInterface[]>([])
     const [pesquisa, setPesquisa] = useState<string>("");
-    const [error,setError] = useState("");
+    const [error, setError] = useState("");
 
-    const handleState = (e:ChangeEvent<HTMLInputElement>) => {
-        if(e.target.name === "pesquisa"){
+    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === "pesquisa") {
             setPesquisa(e.target.value);
         }
+    }
+
+    function excluir(id: number) {
+        const confirm = window.confirm('Você tem certeza que deseja excluir?');
+        if (confirm)
+            axios.delete('http://127.0.0.1:8000/api/cliente/excluir/' + id)
+                .then(function (response) {
+                    window.location.href = "/listagem"
+                }).catch(function (error) {
+                    console.log('Ocorreu um erro ao excluir');
+                })
     }
     const buscar = (e: FormEvent) => {
         e.preventDefault();
@@ -22,25 +34,25 @@ const Listagem = () => {
             try {
 
                 const response = await axios.post('http://127.0.0.1:8000/api/cliente/nome',
-                {nome:pesquisa},
-                {
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    }
-                }).then(function (response) {
-                    setUsuarios(response.data.data)
-                }).catch(function (error){
-                    console.log(error);
-                });
-               
-            } catch (error){
+                    { nome: pesquisa },
+                    {
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        }
+                    }).then(function (response) {
+                        setUsuarios(response.data.data)
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+
+            } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
     }
-    
+
 
     useEffect(() => {
         async function fetchData() {
@@ -61,16 +73,17 @@ const Listagem = () => {
             <main className={styles.main}>
 
                 <div className='container'>
-
                     <div className='col-md mb-3'>
                         <div className='card'>
                             <div className='card-body'>
                                 <h5 className='card-title'>Pesquisar</h5>
-                                <form onSubmit={buscar}className='row'>
-                                    <div className='col-10'>
+                                <form onSubmit={buscar} className='row'>
+                                    <div className='col-9'>
+                                        
                                         <input type="text" name='pesquisa' className='form-control'
-                                         onChange={handleState}/>
+                                            onChange={handleState} />
                                     </div>
+                                
                                     <div className='col-1'>
                                         <button type='submit' className='btn btn-success'>Pesquisar</button>
                                     </div>
@@ -88,12 +101,11 @@ const Listagem = () => {
                             <table className='table table-hover'>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+
                                         <th>Nome</th>
                                         <th>CPF</th>
                                         <th>E-mail</th>
                                         <th>Celular</th>
-                                        <th>Data de nascimento</th>
                                         <th>Cidade</th>
                                         <th>Estado</th>
                                         <th>País</th>
@@ -101,19 +113,16 @@ const Listagem = () => {
                                         <th>Número</th>
                                         <th>Bairro</th>
                                         <th>CEP</th>
-                                        <th>Complemento</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {usuarios.map(usuario => (
                                         <tr key={usuario.id}>
-                                            <td>{usuario.id}</td>
                                             <td>{usuario.nome}</td>
                                             <td>{usuario.cpf}</td>
                                             <td>{usuario.email}</td>
                                             <td>{usuario.celular}</td>
-                                            <td>{usuario.dataNascismento}</td>
                                             <td>{usuario.cidade}</td>
                                             <td>{usuario.estado}</td>
                                             <td>{usuario.pais}</td>
@@ -121,11 +130,11 @@ const Listagem = () => {
                                             <td>{usuario.numero}</td>
                                             <td>{usuario.bairro}</td>
                                             <td>{usuario.cep}</td>
-                                            <td>{usuario.complemento}</td>
-                                            <td>
-                                                <Link to={"/editarCliente/"+usuario.id} className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
 
+                                            <td className='col-20'>
+                                                <Link to={"/editarCliente/" + usuario.id} className='btn btn-primary btn-sm' >Editar</Link>
+
+                                                <button onClick={() => excluir(usuario.id)} className='button btn-black btn-sm'>Excluir</button>
                                             </td>
                                         </tr>
                                     ))}

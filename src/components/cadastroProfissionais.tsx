@@ -6,6 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import styles from '../App.module.css';
 import axios from 'axios';
+import  '../components/estilo.css';
 
 const CadastroProfissional = () => {
    
@@ -120,7 +121,22 @@ const CadastroProfissional = () => {
             setSalario(e.target.value);
         }
     }
-
+    const findCep = (e: FormEvent) => {
+        e.preventDefault();
+    
+        fetch('https://viacep.com.br/ws/' + cep + '/json/', {
+            method: 'GET'
+        }).then(response => response.json())
+            .then(
+                data => {
+                    setCidade(data.localidade);
+    
+                    setEstado(data.uf);
+    
+                }
+            ).catch(error => { console.log("Pesquisa Inválida") });
+    
+    }
     return (
         <div>
             <Header />
@@ -191,28 +207,17 @@ const CadastroProfissional = () => {
                     </div>
 
                     <div className='col-6'>
-                        <label htmlFor='cidade' className='form-label'>Cidade</label>
-                        <input type='text'
-                            name='cidade'
-                            className='form-control'
-                            required
-                            onChange={handleState}
+                                    <label htmlFor="cidade" className='form-label'>Cidade</label>
+                                    <input type="text" name='cidade' value={cidade} className='form-control' required onChange={handleState}/>
 
-                        ></input>
-                        
-                    </div>
+                                </div>
 
-                    <div className='col-6'>
-                        <label htmlFor='estado' className='form-label'>Estado</label>
-                        <input type='text'
-                            name='estado'
-                            className='form-control'
-                            required
-                            onChange={handleState}
+                                <div className='col-6'>
+                                    <label htmlFor="estado" className='form-label'>Estado</label>
+                                    <input type="text" name='estado' value={estado} className='form-control' required onChange={handleState}/>
 
-                        ></input>
-                        
-                    </div>
+                                </div>
+
 
                     <div className='col-6'>
                         <label htmlFor='pais' className='form-label'>Pais</label>
@@ -261,15 +266,11 @@ const CadastroProfissional = () => {
                     </div>
 
                     <div className='col-6'>
-                        <label htmlFor='cep' className='form-label'>Cep</label>
-                        <input type='text'
-                            name='cep'
-                            className='form-control'
-                            required
-                            onChange={handleState}
+                                    <label htmlFor="cep" className='form-label'>CEP</label>
+                                    <input type="text" name='cep' onBlur={findCep} className='form-control' required onChange={handleState}/>
 
-                        ></input>
-                    </div>
+                                </div>
+
 
                     <div className='col-6'>
                         <label htmlFor='complemento' className='form-label'>Complemento</label>
@@ -305,11 +306,10 @@ const CadastroProfissional = () => {
                     </div>
 
 
-                    <div className='col-12'>
-                        <button
-                            type='submit'
-                            className='btn btn-success btn-sm'>Cadastrar</button>
-                    </div>
+                    <div className='col-15'>
+                                    <button className='btn' type='submit'> Cadastrar
+                                    </button>
+                                </div>
                 </form>
             </main>
             <Footer />

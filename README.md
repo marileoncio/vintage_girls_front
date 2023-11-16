@@ -6,6 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Comandos no CMD
 
+### `git clone https://github.com/marileoncio/vintage_girls_front.git`
+
+### `code . `
+
+### `cd vintage_girls_front`
+
 ### `npm install`
 
 ### `npm start`

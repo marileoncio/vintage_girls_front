@@ -3,6 +3,7 @@ import Footer from './Footer';
 import Header from './Header';
 import styles from '../App.module.css';
 import axios from 'axios';
+import  '../components/estilo.css';
 
 const CadastroCliente = () => {
     const [nome, setNome] = useState<string>("")
@@ -40,7 +41,7 @@ const CadastroCliente = () => {
             complemento: complemento,
             senha: senha
         }
-        console.log (dados)
+        console.log(dados)
         axios.post('http://127.0.0.1:8000/api/cliente/store',
             dados,
             {
@@ -48,13 +49,29 @@ const CadastroCliente = () => {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 }
-            }).then(function(response){
+            }).then(function (response) {
                 console.log(response.data)
-                window.location.href = "/listagem"
-            }).catch(function(error){
+              window.location.href = "/listagem"
+            }).catch(function (error) {
                 console.log(error);
                 console.log(dados);
             });
+    }
+    const findCep = (e: FormEvent) => {
+        e.preventDefault();
+    
+        fetch('https://viacep.com.br/ws/' + cep + '/json/', {
+            method: 'GET'
+        }).then(response => response.json())
+            .then(
+                data => {
+                    setCidade(data.localidade);
+    
+                    setEstado(data.uf);
+    
+                }
+            ).catch(error => { console.log("Pesquisa Inválida") });
+    
     }
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "nome") {
@@ -98,7 +115,6 @@ const CadastroCliente = () => {
         if (e.target.name === "senha") {
             setSenha(e.target.value);
         }
-
     }
     return (
         <div>
@@ -137,17 +153,19 @@ const CadastroCliente = () => {
 
                                 </div>
 
+                               
                                 <div className='col-6'>
                                     <label htmlFor="cidade" className='form-label'>Cidade</label>
-                                    <input type="text" name='cidade' className='form-control' required onChange={handleState} />
+                                    <input type="text" name='cidade' value={cidade} className='form-control' required onChange={handleState}/>
 
                                 </div>
 
                                 <div className='col-6'>
                                     <label htmlFor="estado" className='form-label'>Estado</label>
-                                    <input type="text" name='estado' className='form-control' required onChange={handleState} />
+                                    <input type="text" name='estado' value={estado} className='form-control' required onChange={handleState}/>
 
                                 </div>
+
 
                                 <div className='col-6'>
                                     <label htmlFor="pais" className='form-label'>País</label>
@@ -174,23 +192,23 @@ const CadastroCliente = () => {
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="cep" className='form-label'>CEP</label>
-                                    <input type="text" name='cep' className='form-control' required onChange={handleState} />
+                                    <input type="text" name='cep' onBlur={findCep} className='form-control' required onChange={handleState}/>
 
                                 </div>
-
                                 <div className='col-6'>
                                     <label htmlFor="complemento" className='form-label'>Complemento</label>
                                     <input type="text" name='complemento' className='form-control' required onChange={handleState} />
 
                                 </div>
 
-                                    <div className='col-6'>
+                                <div className='col-6'>
                                     <label htmlFor="senha" className='form-label'>Senha</label>
                                     <input type="text" name='senha' className='form-control' required onChange={handleState} />
                                 </div>
 
-                                <div className='col-12'>
-                                    <button type='submit' className='btn btn-success btn-sm'>Cadastrar</button>
+                                <div className='col-15'>
+                                    <button className='btn' type='submit'> Cadastrar
+                                    </button>
                                 </div>
                             </form>
 
