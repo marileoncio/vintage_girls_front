@@ -16,7 +16,16 @@ const ListagemServico = () => {
             setPesquisa(e.target.value);
     }
 }
-
+function excluir(id: number) {
+    const confirm = window.confirm('Você tem certeza que deseja excluir?');
+    if (confirm)
+        axios.delete('http://127.0.0.1:8000/api/servico/excluir/' + id)
+            .then(function (response) {
+                window.location.href = "/listagemServico"
+            }).catch(function (error) {
+                console.log('Ocorreu um erro ao excluir');
+            })
+}
     const buscar = (e: FormEvent) => {
         e.preventDefault();
 
@@ -110,11 +119,10 @@ const ListagemServico = () => {
                                             <td>{usuario.duracao}</td>
                                             <td>{usuario.preco}</td>
                                            
-                                           
-                                           
-                                            <td>
-                                            <Link to={"/editarServico/"+usuario.id} className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                             <td className='col-20'>
+                                                <Link to={"/editarServico/" + usuario.id} className='btn btn-primary btn-sm' >Editar</Link>
+
+                                                <button onClick={() => excluir(usuario.id)} className='button btn-black btn-sm'>Excluir</button>
                                             </td>
                                         </tr>
                                     ))}

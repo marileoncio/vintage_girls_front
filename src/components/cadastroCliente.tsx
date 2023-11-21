@@ -4,13 +4,14 @@ import Header from './Header';
 import styles from '../App.module.css';
 import axios from 'axios';
 import  '../components/estilo.css';
+import Swal from 'sweetalert2';
 
 const CadastroCliente = () => {
     const [nome, setNome] = useState<string>("")
     const [celular, setCelular] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [cpf, setCpf] = useState<string>("")
-    const [dataNascimento, setDataNacimento] = useState<string>("")
+    const [dataNascimento, setDataNascimento] = useState<string>("")
     const [cidade, setCidade] = useState<string>("")
     const [estado, setEstado] = useState<string>("")
     const [pais, setPais] = useState<string>("")
@@ -56,6 +57,12 @@ const CadastroCliente = () => {
                 console.log(error);
                 console.log(dados);
             });
+            Swal.fire({
+                title: "Cadastrado com Sucesso!",
+                text: "Novo cliente cadastrado!",
+                icon: "success"
+              });
+              
     }
     const findCep = (e: FormEvent) => {
         e.preventDefault();
@@ -87,7 +94,7 @@ const CadastroCliente = () => {
             setCpf(e.target.value);
         }
         if (e.target.name === "dataNascimento") {
-            setDataNacimento(e.target.value);
+            setDataNascimento(e.target.value);
         }
         if (e.target.name === "cidade") {
             setCidade(e.target.value);
@@ -143,7 +150,7 @@ const CadastroCliente = () => {
 
                                 <div className='col-6'>
                                     <label htmlFor="email" className='form-label'>E-mail</label>
-                                    <input type="text" name='email' className='form-control' required onChange={handleState} />
+                                    <input type="email" name='email' className='form-control' required onChange={handleState} />
 
                                 </div>
 
@@ -203,11 +210,12 @@ const CadastroCliente = () => {
 
                                 <div className='col-6'>
                                     <label htmlFor="senha" className='form-label'>Senha</label>
-                                    <input type="text" name='senha' className='form-control' required onChange={handleState} />
+                                    <input type="password" name='senha' className='form-control' required onChange={handleState} />
                                 </div>
 
                                 <div className='col-15'>
                                     <button className='btn' type='submit'> Cadastrar
+                                   
                                     </button>
                                 </div>
                             </form>

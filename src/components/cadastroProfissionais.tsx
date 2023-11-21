@@ -7,6 +7,7 @@ import Footer from './Footer';
 import styles from '../App.module.css';
 import axios from 'axios';
 import  '../components/estilo.css';
+import Swal from 'sweetalert2';
 
 const CadastroProfissional = () => {
    
@@ -59,11 +60,21 @@ const CadastroProfissional = () => {
             }).then(function(response){
                 console.log(response)
                 if(response.data.success == true){
-                    console.log("Cadastrou")
+                    Swal.fire({
+                        title: "Cadastrado com Sucesso!",
+                        text: "Novo cliente cadastrado!",
+                        icon: "success"
+                      });
                     window.location.href = "/listagemProfissional"
                 }
                 else{
                     console.log(response.data.error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops..",
+                        text: "Alguma coisa deu errado!",
+                        
+                      });
                 }
             }).catch(function(error){
                 console.log(error);
@@ -285,7 +296,7 @@ const CadastroProfissional = () => {
 
                     <div className='col-6'>
                         <label htmlFor='password' className='form-label'>Senha</label>
-                        <input type='text'
+                        <input type='password'
                             name='password'
                             className='form-control'
                             required

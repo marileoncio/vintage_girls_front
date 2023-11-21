@@ -305,7 +305,7 @@ const EditarProfissional = () => {
 
                     <div className='col-6'>
                         <label htmlFor='senha' className='form-label'>Senha</label>
-                        <input type='text'
+                        <input type='password'
                             name='senha'
                             className='form-control'
                             required
@@ -316,7 +316,7 @@ const EditarProfissional = () => {
 
                     <div className='col-6'>
                         <label htmlFor='salario' className='form-label'>Salario</label>
-                        <input type='text'
+                        <input type='password'
                             name='salario'
                             className='form-control'
                             required
