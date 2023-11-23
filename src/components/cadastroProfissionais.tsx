@@ -50,7 +50,7 @@ const CadastroProfissional = () => {
             salario: salario
         }
         console.log(dados)
-        axios.post('http://127.0.0.1:8000/api/profissional/store',
+        axios.post('http://127.0.0.1:8000/api/cliente/store',
             dados,
             {
                 headers: {
@@ -65,7 +65,7 @@ const CadastroProfissional = () => {
                         text: "Novo cliente cadastrado!",
                         icon: "success"
                       });
-                    window.location.href = "/listagemProfissional"
+                    window.location.href = "/listagem"
                 }
                 else{
                     console.log(response.data.error);
@@ -75,13 +75,8 @@ const CadastroProfissional = () => {
                         text: "Alguma coisa deu errado!",
                         
                       });
-                }
-            }).catch(function(error){
-                console.log(error);
-            })
-
-    }
-
+                } })
+            }
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "id") {
             setId(e.target.value);

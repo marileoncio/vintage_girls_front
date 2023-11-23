@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {Component, useState, ChangeEvent, FormEvent, useEffect} from 'react';
+import Swal from 'sweetalert2';
 import styles from "../App.module.css"
 import Footer from './Footer';
 import Header from './Header';
@@ -20,7 +21,7 @@ const CadastroServico = () => {
             preco: preco,
 
         }
-        console.log (dados)
+        console.log(dados)
         axios.post('http://127.0.0.1:8000/api/servico/store',
             dados,
             {
@@ -29,13 +30,29 @@ const CadastroServico = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function(response){
-                console.log(response.data)
-                window.location.href = "/ListagemServico"
+                console.log(response)
+                if(response.data.success == true){
+                    Swal.fire({
+                        title: "Cadastrado com Sucesso!",
+                        text: "Novo serviço cadastrado!",
+                        icon: "success"
+                      });
+                    window.location.href = "/ListagemServico"
+                }
+                else{
+                    console.log(response.data.error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops..",
+                        text: "Alguma coisa deu errado!",
+                        
+                      });
+                }
             }).catch(function(error){
                 console.log(error);
-                console.log(dados);
-            });
-    }  
+            })
+
+    }
     
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "nome") {

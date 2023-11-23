@@ -43,3 +43,7 @@ button {
   button:active {
     transform: scale(0.9);
   }
+  body {
+    background-color: rgb(172, 236, 247);
+  }
+  

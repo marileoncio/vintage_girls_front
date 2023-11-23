@@ -7,6 +7,7 @@ import Footer from './Footer';
 import styles from '../App.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const EditarProfissional = () => {
@@ -61,10 +62,16 @@ const EditarProfissional = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function (response) {
-                window.location.href = "/editarProfissional"
+                window.location.href = "/ListagemProfissional"
             }).catch(function (error) {
                 console.log(error);
             });
+
+            Swal.fire({
+                title: "Atualizado com Sucesso!",
+                text: "Novo profissional cadastrado!",
+                icon: "success"
+              });
     }
 
     useEffect(() => {

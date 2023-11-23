@@ -7,6 +7,7 @@ import Footer from './Footer';
 import styles from '../App.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const EditarServico = () => {
@@ -32,18 +33,24 @@ const EditarServico = () => {
         }
 
         axios.put('http://127.0.0.1:8000/api/servico/update',
-            dados,
-            {
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                }
-            }).then(function (response) {
-                window.location.href = "/listagemservico"
-            }).catch(function (error) {
-                console.log(error);
-            });
-    }
+        dados,
+        {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        }).then(function (response) {
+            window.location.href = "/ListagemServico"
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        Swal.fire({
+            title: "Atualizado com sucesso!",
+            text: "Novo cliente atualizado!",
+            icon: "success"
+          });
+}
 
     useEffect(() => {
         async function fetchData() {

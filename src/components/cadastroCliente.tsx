@@ -4,7 +4,7 @@ import Header from './Header';
 import styles from '../App.module.css';
 import axios from 'axios';
 import  '../components/estilo.css';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; 
 
 const CadastroCliente = () => {
     const [nome, setNome] = useState<string>("")
@@ -50,19 +50,29 @@ const CadastroCliente = () => {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 }
-            }).then(function (response) {
-                console.log(response.data)
-              window.location.href = "/listagem"
-            }).catch(function (error) {
+            }).then(function(response){
+                console.log(response)
+                if(response.data.success == true){
+                    Swal.fire({
+                        title: "Cadastrado com Sucesso!",
+                        text: "Novo cliente cadastrado!",
+                        icon: "success"
+                      });
+                    window.location.href = "/listagem"
+                }
+                else{
+                    console.log(response.data.error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops..",
+                        text: "Alguma coisa deu errado!",
+                        
+                      });
+                }
+            }).catch(function(error){
                 console.log(error);
-                console.log(dados);
-            });
-            Swal.fire({
-                title: "Cadastrado com Sucesso!",
-                text: "Novo cliente cadastrado!",
-                icon: "success"
-              });
-              
+            })
+
     }
     const findCep = (e: FormEvent) => {
         e.preventDefault();
@@ -125,7 +135,7 @@ const CadastroCliente = () => {
     }
     return (
         <div>
-            <Header />
+           <Header />
             <main className={styles.main}>
                 <div className='container'>
                     <div className='card'>
@@ -134,6 +144,9 @@ const CadastroCliente = () => {
                             <h5 className='card-title'>Cadastrar Cliente</h5>
                             <form onSubmit={CadastroCliente} className='row g-3'>
                                 <div className='col-6'>
+                                    <body/>
+                                        
+                                    
                                     <label htmlFor="nome" className='form-label'>Nome</label>
                                     <input type="text" name="nome" className='form-control' required onChange={handleState} />
 
@@ -160,6 +173,11 @@ const CadastroCliente = () => {
 
                                 </div>
 
+                                <div className='col-6'>
+                                    <label htmlFor="cep" className='form-label'>CEP</label>
+                                    <input type="text" name='cep' onBlur={findCep} className='form-control' required onChange={handleState}/>
+
+                                </div>
                                
                                 <div className='col-6'>
                                     <label htmlFor="cidade" className='form-label'>Cidade</label>
@@ -197,11 +215,7 @@ const CadastroCliente = () => {
                                     <input type="text" name='bairro' className='form-control' required onChange={handleState} />
 
                                 </div>
-                                <div className='col-6'>
-                                    <label htmlFor="cep" className='form-label'>CEP</label>
-                                    <input type="text" name='cep' onBlur={findCep} className='form-control' required onChange={handleState}/>
-
-                                </div>
+                               
                                 <div className='col-6'>
                                     <label htmlFor="complemento" className='form-label'>Complemento</label>
                                     <input type="text" name='complemento' className='form-control' required onChange={handleState} />
@@ -213,6 +227,7 @@ const CadastroCliente = () => {
                                     <input type="password" name='senha' className='form-control' required onChange={handleState} />
                                 </div>
 
+    
                                 <div className='col-15'>
                                     <button className='btn' type='submit'> Cadastrar
                                    

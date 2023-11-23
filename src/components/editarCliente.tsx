@@ -7,6 +7,7 @@ import Footer from './Footer';
 import styles from '../App.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const EditarCliente = () => {
@@ -63,6 +64,12 @@ const EditarCliente = () => {
             }).catch(function (error) {
                 console.log(error);
             });
+
+            Swal.fire({
+                title: "Atualizado com sucesso!",
+                text: "Novo cliente atualizado!",
+                icon: "success"
+              });
     }
 
     useEffect(() => {
