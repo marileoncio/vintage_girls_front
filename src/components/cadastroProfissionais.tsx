@@ -50,7 +50,7 @@ const CadastroProfissional = () => {
             salario: salario
         }
         console.log(dados)
-        axios.post('http://127.0.0.1:8000/api/cliente/store',
+        axios.post('http://127.0.0.1:8000/api/profissional/store',
             dados,
             {
                 headers: {
@@ -65,7 +65,7 @@ const CadastroProfissional = () => {
                         text: "Novo cliente cadastrado!",
                         icon: "success"
                       });
-                    window.location.href = "/listagem"
+                    window.location.href = "/listagemProfissional"
                 }
                 else{
                     console.log(response.data.error);
@@ -148,9 +148,9 @@ const CadastroProfissional = () => {
             <Header />
             <main className={styles.main}>
 
-                <div className='container'></div>
-                <div className='card'> </div>
-                <div className='card-body'> </div>
+                <div className='container'>
+                <div className='card'> 
+                <div className='card-body'> 
                 <br />
                 <h5 className='card-title'>Cadastrar Profissional</h5>
                 
@@ -213,6 +213,13 @@ const CadastroProfissional = () => {
                     </div>
 
                     <div className='col-6'>
+                                    <label htmlFor="cep" className='form-label'>CEP</label>
+                                    <input type="text" name='cep' onBlur={findCep} className='form-control' required onChange={handleState}/>
+
+                                </div>
+
+
+                    <div className='col-6'>
                                     <label htmlFor="cidade" className='form-label'>Cidade</label>
                                     <input type="text" name='cidade' value={cidade} className='form-control' required onChange={handleState}/>
 
@@ -271,12 +278,6 @@ const CadastroProfissional = () => {
                         ></input>
                     </div>
 
-                    <div className='col-6'>
-                                    <label htmlFor="cep" className='form-label'>CEP</label>
-                                    <input type="text" name='cep' onBlur={findCep} className='form-control' required onChange={handleState}/>
-
-                                </div>
-
 
                     <div className='col-6'>
                         <label htmlFor='complemento' className='form-label'>Complemento</label>
@@ -317,6 +318,9 @@ const CadastroProfissional = () => {
                                     </button>
                                 </div>
                 </form>
+                </div>
+                </div>
+                </div>
             </main>
             <Footer />
         </div>

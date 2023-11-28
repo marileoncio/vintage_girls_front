@@ -47,7 +47,7 @@ const EditarServico = () => {
 
         Swal.fire({
             title: "Atualizado com sucesso!",
-            text: "Novo cliente atualizado!",
+            text: "Serviço atualizado!",
             icon: "success"
           });
 }
@@ -95,9 +95,9 @@ const EditarServico = () => {
             <Header />
             <main className={styles.main}>
 
-                <div className='container'></div>
-                <div className='card'> </div>
-                <div className='card-body'> </div>
+                <div className='container'>
+                <div className='card'> 
+                <div className='card-body'> 
                 <br />
                 <h5 className='card-title'>Editar Serviço</h5>
                 <form onSubmit={atualizar} className='row g-3'>
@@ -152,6 +152,9 @@ const EditarServico = () => {
                             className='btn btn-success btn-sm'>Atualizar</button>
                     </div>
                 </form>
+                </div>
+                </div>
+                </div>
             </main>
             <Footer />
         </div>

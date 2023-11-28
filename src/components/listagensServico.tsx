@@ -3,6 +3,7 @@ import styles from "../App.module.css";
 import axios from 'axios';
 import { CadastroServicoInterface } from '../interfaces/cadastroServicoInterface';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ListagemServico = () => {
 
@@ -17,15 +18,46 @@ const ListagemServico = () => {
     }
 }
 function excluir(id: number) {
-    const confirm = window.confirm('Você tem certeza que deseja excluir?');
-    if (confirm)
-        axios.delete('http://127.0.0.1:8000/api/servico/excluir/' + id)
+    //const confirm = window.confirm('Você tem certeza que deseja excluir?');
+   //if (confirm)
+   const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-primary",
+      cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+  });
+  swalWithBootstrapButtons.fire({
+    title: "Tem certeza que deseja excluir?",
+    text: "Não poderá recuperar os dados depois!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sim, deletar!",
+    cancelButtonText: "Não, cancelar!",
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      swalWithBootstrapButtons.fire({
+        title: "Deletado!",
+        text: "O serviço foi deletado",
+        icon: "success"
+      });
+  axios.delete('http://127.0.0.1:8000/api/servico/excluir/' + id)
             .then(function (response) {
                 window.location.href = "/listagemServico"
             }).catch(function (error) {
-                console.log('Ocorreu um erro ao excluir');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops..",
+                    text: "Não foi possível excluir!",
+                    
+                  });
+            
             })
 }
+  }
+  )}
+
     const buscar = (e: FormEvent) => {
         e.preventDefault();
 

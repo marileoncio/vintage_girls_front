@@ -54,7 +54,7 @@ const EditarProfissional = () => {
 
         }
 
-        axios.put('http://127.0.0.1:8000/api/cliente/update',
+        axios.put('http://127.0.0.1:8000/api/profissional/update',
             dados,
             {
                 headers: {
@@ -160,9 +160,9 @@ const EditarProfissional = () => {
             <Header />
             <main className={styles.main}>
 
-                <div className='container'></div>
-                <div className='card'> </div>
-                <div className='card-body'> </div>
+                <div className='container'>
+                <div className='card'>
+                <div className='card-body'>
                 <br />
                 <h5 className='card-title'>Editar Profissional</h5>
                 <form onSubmit={atualizar} className='row g-3'>
@@ -219,6 +219,17 @@ const EditarProfissional = () => {
                             required
                             onChange={handleState}
                             value={dataNascimento}
+                        ></input>
+                    </div>
+
+                    <div className='col-6'>
+                        <label htmlFor='cep' className='form-label'>Cep</label>
+                        <input type='text'
+                            name='cep'
+                            className='form-control'
+                            required
+                            onChange={handleState}
+                            value={cep}
                         ></input>
                     </div>
 
@@ -289,17 +300,6 @@ const EditarProfissional = () => {
                     </div>
 
                     <div className='col-6'>
-                        <label htmlFor='cep' className='form-label'>Cep</label>
-                        <input type='text'
-                            name='cep'
-                            className='form-control'
-                            required
-                            onChange={handleState}
-                            value={cep}
-                        ></input>
-                    </div>
-
-                    <div className='col-6'>
                         <label htmlFor='ccomplemento' className='form-label'>Complemento</label>
                         <input type='text'
                             name='complemento'
@@ -338,6 +338,9 @@ const EditarProfissional = () => {
                             className='btn btn-success btn-sm'>Atualizar</button>
                     </div>
                 </form>
+                </div>
+                </div>
+                </div>
             </main>
             <Footer />
         </div>
