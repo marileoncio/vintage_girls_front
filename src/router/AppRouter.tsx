@@ -13,6 +13,8 @@ import EditarServico from "../components/editarServicos";
 import AgendaListagem from "../components/agendaListagem";
 import EditarAgenda from "../components/editarAgenda";
 import EditarSenhaCliente from "../components/editarSenhaCliente";
+import EditarSenhProfissional from "../components/editarSenhaProfissional";
+import EditarSenhaProfissional from "../components/editarSenhaProfissional";
 
 
 const AppRouter = () => {
@@ -39,6 +41,8 @@ const AppRouter = () => {
         <Route path="editar/agenda/:id" element={<EditarAgenda/>}/>
 
         <Route path="recuperar/senha" element={<EditarSenhaCliente/>}/>
+        <Route path="recuperar/senha/profissionais" element={<EditarSenhaProfissional/>}/>
+
         
 
        

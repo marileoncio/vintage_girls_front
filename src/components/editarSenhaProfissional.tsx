@@ -1,7 +1,7 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Header from './Header';
 
-import styles from '../router/App.module.css';
+import styles from '../App.module.css';
 
 import { useParams } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import axios from 'axios';
 import { CadastroProfissionaisInterface } from '../interfaces/cadastroProfissionaisInterface';
 
 
-const MudaSenhaProfissional     = () => {
+const EditarSenhaProfissional     = () => {
 
 
     
@@ -44,7 +44,7 @@ const MudaSenhaProfissional     = () => {
 
 
 
-        axios.put('http://127.0.0.1:8000/api/cliente/senha',
+        axios.put('http://127.0.0.1:8000/api/profissional/senha',
             dados,
             {
                 headers: {
@@ -52,7 +52,7 @@ const MudaSenhaProfissional     = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function (response) {
-                window.location.href = "/listagem"
+                window.location.href = "/listagemProfissional"
                 console.log(response.data);
             }).catch(function (error) {
                 console.log(error)
@@ -73,7 +73,7 @@ const MudaSenhaProfissional     = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/cliente/find/" + parametro.id);
+                const response = await axios.get("http://127.0.0.1:8000/api/profissional/find/" + parametro.id);
                 if (response.data.status === true) {
                     
                     setEmail(response.data.data.email)
@@ -100,7 +100,7 @@ const MudaSenhaProfissional     = () => {
 
                     <div className='card'>
                         <div className='card-body'>
-                            <h1 className='card-title display-6 '>senha</h1>
+                            <h1 className='card-title display-6 '>Editar Sua Senha</h1>
                             <hr />
                             <form onSubmit={EsqueciSenha} className='row g-3'>
                                 <div className='col-12'>
@@ -121,4 +121,4 @@ const MudaSenhaProfissional     = () => {
         </div>
     )
 }
-export default MudaSenhaProfissional   ;
+export default EditarSenhaProfissional   ;
