@@ -69,7 +69,7 @@ const Listagem = () => {
                             "Content-Type": "application/json"
                         }
                     }).then(function (response) {
-                        setUsuarios(response.data.data)
+                         if(response.data.status===true){setUsuarios(response.data.data)} else{setUsuarios([])}
                     }).catch(function (error) {
                         console.log(error);
                     });
@@ -102,7 +102,8 @@ const Listagem = () => {
                     <div className='col-md mb-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'>Pesquisar</h5>
+                                <h5 className='strong'>Pesquisar</h5>
+                                <br />
                                 <form onSubmit={buscar} className='row'>
                                     <div className='col-9'>
                                         
@@ -111,7 +112,7 @@ const Listagem = () => {
                                     </div>
                                 
                                     <div className='col-1'>
-                                        <button type='submit' className='btn btn-success'>Pesquisar</button>
+                                    <button className='btn btn-success' type='submit'>Pesquisar</button>
                                     </div>
                                 </form>
                             </div>
@@ -151,7 +152,7 @@ const Listagem = () => {
                                             <td>{usuario.celular}</td>
                                             <td>{usuario.cidade}</td>
                                             <td>{usuario.estado}</td>
-                                            <td>{usuario.pais}</td>
+                                            <td>{usuario.pais}</td> 
                                             <td>{usuario.rua}</td>
                                             <td>{usuario.numero}</td>
                                             <td>{usuario.bairro}</td>
@@ -166,7 +167,7 @@ const Listagem = () => {
 </svg></a>
 
                             <Link to={"/recuperar/senha"} className='btn btn-success'>Alterar
-                            Senha</Link>
+                            </Link>
                                                
                                             </td>
                                         </tr>

@@ -28,10 +28,10 @@ const EditarSenhaCliente = () => {
         e.preventDefault();
 
         const dados = {
-        email: email,  
+            email: email,
         }
 
-    axios.put('http://127.0.0.1:8000/api/cliente/senha',
+        axios.put('http://127.0.0.1:8000/api/cliente/senha',
             dados,
             {
                 headers: {
@@ -39,7 +39,11 @@ const EditarSenhaCliente = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function (response) {
-                window.location.href = "/listagem"
+                if (response.data.status === true) {
+                    console.log(response.data.data);
+
+                    window.location.href = "/listagem"
+                }
                 console.log(response.data);
             }).catch(function (error) {
                 console.log(error)
